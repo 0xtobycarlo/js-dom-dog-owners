@@ -36,3 +36,32 @@ const createDogCardDesc = (bio) => {
 
   return div;
 };
+
+function createDogCardBottomSection(dog) {
+  const button = document.createElement("button");
+  const text = document.createElement("p");
+  const div = document.createElement("div");
+
+  div.className = "main__dog-section__btn";
+
+  div.append(text, button);
+  return div;
+}
+
+const createDogCard = (dog) => {
+  const section = createSection();
+  const header = document.createElement("h2");
+  header.innerText = dog.name;
+
+  const desc = createDogCardDesc(dog.bio);
+  const bottomSection = createDogCardBottomSection(dog);
+
+  const dogImage = document.createElement("img");
+  dogImage.setAttribute("src", dog.image);
+
+  section.append(header, dogImage, desc, bottomSection);
+
+  return section;
+};
+
+// ----
