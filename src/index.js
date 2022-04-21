@@ -64,4 +64,95 @@ const createDogCard = (dog) => {
   return section;
 };
 
-// ----
+function createForm() {
+  const form = document.createElement("form");
+
+  const nameInput = createInput("name");
+  const imgInput = createInput("image", "url");
+  const bioInput = createInput("bio", "textarea");
+  const submitInput = createInput("submit", "submit", "Add a dog!");
+
+  const nameLabel = createLabel("name", "Dog's Name");
+  const imgLabel = createLabel("image", "Dog's Picture");
+  const bioLabel = createLabel("bio", "Dog's Bio");
+
+  form.className = "form";
+  submitInput.className = "form__button";
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const dogNameInput = document.querySelector("#name");
+    dogNameInput.value;
+    console.log(dogNameInput.value);
+  });
+
+  form.append(
+    nameLabel,
+    nameInput,
+    imgLabel,
+    imgInput,
+    bioLabel,
+    bioInput,
+    submitInput
+  );
+  return form;
+}
+
+function createInput(idName, type = "text", value) {
+  let input = null;
+
+  if (type === "textarea") {
+    input = document.createElement("textarea");
+    input.setAttribute("rows", "5");
+  } else {
+    input = document.createElement("input");
+    input.setAttribute("type", type);
+  }
+
+  input.setAttribute("id", idName);
+  input.setAttribute("name", idName);
+
+  if (value) input.setAttribute("value", value);
+
+  return input;
+}
+
+function createLabel(forAttr, text) {
+  const label = document.createElement("label");
+  label.attributes.for = forAttr;
+  label.innerText = text;
+
+  return label;
+}
+
+function renderMainForm() {
+  const section = createSection();
+  const form = createForm();
+  const h2 = document.createElement("h2");
+
+  h2.innerText = "Add a new Dog";
+
+  section.append(h2, form);
+
+  return section;
+}
+
+function renderDogList(dogsArr) {
+  const listContainer = document.querySelector(".dogs-list");
+  for (const dog of dogsArr) {
+    const item = createDogListItem(dog);
+    listContainer.append(item);
+  }
+}
+
+renderDogList(data);
+
+const formButton = document.querySelector(".dogs-list__button--add");
+const dogContainer = document.querySelector(".main");
+
+formButton.addEventListener("click", function () {
+  const renderForm = renderMainForm();
+  const section = document.querySelector("section");
+  section.remove();
+  dogContainer.append(renderForm);
+});
